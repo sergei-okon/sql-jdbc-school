@@ -1,12 +1,8 @@
 package ua.com.foxminded.service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 public class InitialData {
 
@@ -18,16 +14,23 @@ public class InitialData {
 
         List<String> names;
         try {
-            names = Files.lines(Paths.get("src/main/resources/names.txt")).collect(Collectors.toList());
-//            Collections.shuffle(names);
+            names = Arrays.stream(new String(Objects.requireNonNull(Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("names.txt")).readAllBytes(),
+                    StandardCharsets.UTF_8).split("\r\n")).toList();
+
         } catch (IOException e) {
             throw new IOException("Error: names file not found");
         }
 
         List<String> surnames;
         try {
-            surnames = Files.lines(Paths.get("src/main/resources/surnames.txt")).collect(Collectors.toList());
-//            Collections.shuffle(surnames);
+
+            surnames = Arrays.stream(new String(Objects.requireNonNull(Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("surnames.txt")).readAllBytes(),
+                    StandardCharsets.UTF_8).split("\r\n")).toList();
+
         } catch (IOException e) {
             throw new IOException("Error: surnames file not found");
         }
@@ -48,8 +51,13 @@ public class InitialData {
 
     public List<String> createCourses() throws IOException {
         List<String> courses;
+
         try {
-            courses = Files.lines(Paths.get("src/main/resources/courses.txt")).collect(Collectors.toList());
+            courses = Arrays.stream(new String(Objects.requireNonNull(Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("courses.txt")).readAllBytes(),
+                    StandardCharsets.UTF_8).split("\r\n")).toList();
+
         } catch (IOException e) {
             throw new IOException("Error: course file not found");
         }
