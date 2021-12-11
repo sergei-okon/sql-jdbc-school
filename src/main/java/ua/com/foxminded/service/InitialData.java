@@ -1,4 +1,4 @@
-package ua.com.foxminded.initial;
+package ua.com.foxminded.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +13,7 @@ public class InitialData {
     private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String numeric = "0123456789";
 
-    public static List<String> createFullName() throws IOException {
+    public List<String> createFullName() throws IOException {
         List<String> fullNames = new ArrayList<>();
 
         List<String> names;
@@ -46,7 +46,7 @@ public class InitialData {
         return fullNames;
     }
 
-    public static List<String> createCourses() throws IOException {
+    public List<String> createCourses() throws IOException {
         List<String> courses;
         try {
             courses = Files.lines(Paths.get("src/main/resources/courses.txt")).collect(Collectors.toList());
@@ -56,29 +56,29 @@ public class InitialData {
         return courses;
     }
 
-    public static List<String> createGroups(int numberGroups, int lengthWords, int lengthNumeric) {
+    public List<String> createGroups(int numberGroups, int lengthWords, int lengthNumeric) {
         List<String> groups = new ArrayList<>();
 
         for (int i = 0; i < numberGroups; i++) {
-            groups.add(InitialData.generateOneGroupsName(lengthWords, lengthNumeric));
+            groups.add(this.generateOneGroupsName(lengthWords, lengthNumeric));
         }
         return groups;
     }
 
-    private static String generateOneGroupsName(int lengthWords, int lengthNumeric) {
+    private String generateOneGroupsName(int lengthWords, int lengthNumeric) {
 
         Random r = new Random();
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < lengthWords; i++) {
-            result += alphabet.charAt(r.nextInt(alphabet.length()));
+            result.append(alphabet.charAt(r.nextInt(alphabet.length())));
         }
 
-        result += "-";
+        result.append("-");
 
         for (int i = 0; i < lengthNumeric; i++) {
-            result += numeric.charAt(r.nextInt(numeric.length()));
+            result.append(numeric.charAt(r.nextInt(numeric.length())));
         }
-        return result;
+        return result.toString();
     }
 }
