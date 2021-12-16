@@ -1,7 +1,5 @@
-import ua.com.foxminded.dao.CourseDao;
 import ua.com.foxminded.dao.GroupDao;
 import ua.com.foxminded.dao.StudentDao;
-import ua.com.foxminded.model.Group;
 import ua.com.foxminded.model.Student;
 import ua.com.foxminded.service.InitialData;
 
@@ -12,14 +10,14 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Вata initialization ________________________________________________");
+        System.out.println("Data initialization ________________________________________________");
         InitialData initialData = new InitialData();
 
-        initialData.addCoursesToDb();
+        initialData.addCoursesToDataBase();
         System.out.println("------------------------------------------------------------------");
-        initialData.addGroupsToDB();
+        initialData.addGroupsToDataBase();
         System.out.println("------------------------------------------------------------------");
-        initialData.addStudentsToDB();
+        initialData.addStudentsToDataBase();
         System.out.println("------------------------------------------------------------------");
 
         int coutStudentsInGroup = 20;

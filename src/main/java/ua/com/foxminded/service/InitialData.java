@@ -14,23 +14,25 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class InitialData {
 
+    CourseDao courseDao = new CourseDao();
+    StudentDao studentDao = new StudentDao();
+    GroupDao groupDao = new GroupDao();
+
     private static final int STUDENTS_TOTAL_AMOUNT = 200;
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String NUMERIC = "0123456789";
 
-    public void addGroupsToDB() {
+    public void addGroupsToDataBase() {
         List<Group> groups = creatGroupsRandomAmountStudents
                 (200, 10, 30);
-        GroupDao groupDao = new GroupDao();
 
         for (Group group : groups) {
             groupDao.addNew(group);
         }
     }
 
-    public void addStudentsToDB() throws IOException {
+    public void addStudentsToDataBase() throws IOException {
         List<Student> students = assignCoursesStudents();
-        StudentDao studentDao = new StudentDao();
         List<Integer> studentCourse;
 
         for (int i = 0; i < 200; i++) {
@@ -45,9 +47,8 @@ public class InitialData {
         }
     }
 
-    public void addCoursesToDb() throws IOException {
+    public void addCoursesToDataBase() throws IOException {
         Set<Course> courseList = createCourses();
-        CourseDao courseDao = new CourseDao();
 
         for (Course course : courseList) {
             courseDao.addNew(course);
@@ -92,7 +93,7 @@ public class InitialData {
 
         List<Student> studentsWithoutGroup = createStudentsFullName(STUDENTS_TOTAL_AMOUNT - students.size());
         Group groupWithoutStudents = new Group(11, "StudentWithoutGroup", studentsWithoutGroup.size());
-        GroupDao groupDao = new GroupDao();
+
         groupDao.addNew(groupWithoutStudents);
 
         for (Student student : studentsWithoutGroup) {

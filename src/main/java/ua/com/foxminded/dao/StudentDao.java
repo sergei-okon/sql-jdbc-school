@@ -15,7 +15,7 @@ public class StudentDao {
         CourseDao courseDao = new CourseDao();
 
         int courseId = courseDao.findByName(nameCourse).getId();
-        System.out.println("Id курса  " + courseId);
+        System.out.println("Id course  " + courseId);
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection

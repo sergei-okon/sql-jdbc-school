@@ -12,7 +12,7 @@ public class GroupDao {
         List<Group> groups = new ArrayList<>();
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("SELECT group_id,name,\"amountStudents\" FROM groups WHERE groups.\"amountStudents\">=?")) {
+                     .prepareStatement("SELECT group_id,name,amount_students FROM groups WHERE groups.amount_students>=?")) {
 
             preparedStatement.setInt(1, count);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -47,7 +47,7 @@ public class GroupDao {
 
         try (Statement statement = DataSource.getConnection().createStatement()) {
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM GROUPS");
+            ResultSet resultSet = statement.executeQuery("SELECT group_id, name, amount_students FROM GROUPS");
             groups = groupMapper(resultSet);
 
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class GroupDao {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("INSERT INTO GROUPS(name, \"amountStudents\") VALUES (?,?);")) {
+                     .prepareStatement("INSERT INTO GROUPS(name, amount_students) VALUES (?,?);")) {
 
             preparedStatement.setString(1, group.getName());
             preparedStatement.setInt(2, group.getAmountStudents());
@@ -114,7 +114,7 @@ public class GroupDao {
 
             group.setId(resultSet.getInt("group_id"));
             group.setName(resultSet.getString("name"));
-            group.setAmountStudents(resultSet.getInt("amountStudents"));
+            group.setAmountStudents(resultSet.getInt("amount_students"));
 
             groups.add(group);
         }
