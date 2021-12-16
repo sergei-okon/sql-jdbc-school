@@ -1,10 +1,10 @@
-Mathematics
-Accounting
-Business management
-Biology
-Marketing
-Finance
-Computer programming
-Graphic design
-Literature
-Web design
+Mathematics description1
+Accounting description2
+Business management description3
+Biology description4
+Marketing description5
+Finance description6
+Computer_programming description7
+Graphic_design description8
+Literature description9
+Web_design description10

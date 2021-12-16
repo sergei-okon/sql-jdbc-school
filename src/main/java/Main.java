@@ -1,48 +1,56 @@
+import ua.com.foxminded.dao.CourseDao;
 import ua.com.foxminded.dao.GroupDao;
 import ua.com.foxminded.dao.StudentDao;
 import ua.com.foxminded.model.Group;
+import ua.com.foxminded.model.Student;
 import ua.com.foxminded.service.InitialData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-
+        System.out.println("Вata initialization ________________________________________________");
         InitialData initialData = new InitialData();
-        System.out.println(initialData.createCourses());
-        System.out.println(initialData.createGroups(10, 2, 2));
-        System.out.println(initialData.createFullName());
-//
-        GroupDao groupDao = new GroupDao();
-//
-        System.out.println("\n" + "FIND BY ALL" + groupDao.findAll());
 
-        System.out.println("\n" + "FIND BY ID GROUPS" + groupDao.findById(9));
-//
-        Group groupWorkout1 = new Group();
-        Group groupWorkout2 = new Group();
-        Group groupWorkout3 = new Group();
-        groupWorkout1.setName("Workout1");
-        groupWorkout2.setName("Workout2");
-        groupWorkout3.setName("Workout3");
-        groupDao.addNew(groupWorkout1);
-        groupDao.addNew(groupWorkout2);
-        groupDao.addNew(groupWorkout3);
-        System.out.println("\n" + "FIND BY ALL" + groupDao.findAll());
+        initialData.addCoursesToDb();
+        System.out.println("------------------------------------------------------------------");
+        initialData.addGroupsToDB();
+        System.out.println("------------------------------------------------------------------");
+        initialData.addStudentsToDB();
+        System.out.println("------------------------------------------------------------------");
 
-        Group groupBio = new Group();
-        groupBio.setName("BI-7777777777777777");
+        int coutStudentsInGroup = 20;
+        System.out.println("Find all groups with less or equals student count " + coutStudentsInGroup);
+        GroupDao groupDao1 = new GroupDao();
+        System.out.println(groupDao1.findAllGroupsWithLessOrEqualsStudentCount(coutStudentsInGroup));
+        System.out.println("------------------------------------------------------------------");
 
-        groupDao.update(8, groupBio);
-        System.out.println("==================");
-        System.out.println("\n" + "FIND BY ALL" + groupDao.findAll());
-
-        groupDao.delete(11);
-        System.out.println("\n" + "FIND BY ALL" + groupDao.findAll());
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        System.out.println("------------------------------------------------------------------");
         StudentDao studentDao = new StudentDao();
-        System.out.println(studentDao.findAll());
+        String course = "Mathematics";
+        System.out.println("Find all students related to course with given name " + course);
+        List<Student> st = studentDao.findAllStudentsRelatedToCourseByCourseName(course);
+        System.out.println(st);
+
+        System.out.println("------------------------------------------------------------------");
+        List<Integer> coursesId = new ArrayList<>();
+        coursesId.add(1);
+        coursesId.add(7);
+        Student newStudent = new Student("Peter", "Volkov", 2, coursesId);
+        studentDao.addNew(newStudent);
+
+        System.out.println("------------------------------------------------------------------");
+        studentDao.delete(1);
+
+        System.out.println("------------------------------------------------------------------");
+        studentDao.addStudentToCourseById(201, 8);
+        System.out.println("Added student to course");
+
+        System.out.println("------------------------------------------------------------------");
+        studentDao.removeStudentFromCourses(200, 9);
 
     }
 }

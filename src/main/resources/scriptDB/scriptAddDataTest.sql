@@ -1,5 +1,4 @@
-INSERT INTO public.courses(
-	 name, description)
+INSERT INTO public.courses(name, description)
 	VALUES
 	('Math', 'Mathemetic'),
 	('Acc', 'Accounting'),
@@ -13,8 +12,7 @@ INSERT INTO public.courses(
 	('WD', 'Web design' );
 
 
-INSERT INTO public.groups(
-	name)
+INSERT INTO public.groups(name)
 	VALUES
  	('SR-01'),
  	('DD-02'),
@@ -28,8 +26,7 @@ INSERT INTO public.groups(
 	('ZZ-77');
 
 
- INSERT INTO public.students(
-	"group", "first_name", "last_name")
+ INSERT INTO public.students("group_id", "first_name", "last_name")
 	VALUES
 	(1,'Callum', 'Mcfarland'),
 	(1, 'Ashely', 'Blevins'),

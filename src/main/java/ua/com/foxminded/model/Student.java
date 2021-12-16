@@ -1,14 +1,34 @@
 package ua.com.foxminded.model;
 
+import java.util.List;
+
 public class Student {
 
     private Integer id;
-    private String first_name;
-    private String last_name;
-    private String group;
-    private String course1;
-    private String course2;
-    private String course3;
+    private String firstName;
+    private String lastName;
+    private Integer groupId;
+    private List<Integer> coursesId;
+
+    public Student(Integer id) {
+        this.id = id;
+    }
+
+    public Student() {
+    }
+
+    public Student(String firstName, String lastName, Integer groupId, List<Integer> coursesId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.groupId = groupId;
+        this.coursesId = coursesId;
+    }
+
+    public Student(String firstName, String lastName, Integer groupId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.groupId = groupId;
+    }
 
     public Integer getId() {
         return id;
@@ -18,64 +38,46 @@ public class Student {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getGroup() {
-        return group;
+    public Integer getGroupId() {
+        return groupId;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
-    public String getCourse1() {
-        return course1;
+    public List<Integer> getCoursesId() {
+        return coursesId;
     }
 
-    public void setCourse1(String course1) {
-        this.course1 = course1;
-    }
-
-    public String getCourse2() {
-        return course2;
-    }
-
-    public void setCourse2(String course2) {
-        this.course2 = course2;
-    }
-
-    public String getCourse3() {
-        return course3;
-    }
-
-    public void setCourse3(String course3) {
-        this.course3 = course3;
+    public void setCoursesId(List<Integer> coursesId) {
+        this.coursesId = coursesId;
     }
 
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
-                ", name='" + first_name + '\'' +
-                ", surname='" + last_name + '\'' +
-                ", group='" + group + '\'' +
-                ", course1='" + course1 + '\'' +
-                ", course2='" + course2 + '\'' +
-                ", course3='" + course3 + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", groupId=" + groupId +
+//                ", coursesId=" + coursesId +
                 '}';
     }
 }
