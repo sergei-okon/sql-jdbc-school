@@ -1,8 +1,8 @@
 package ua.com.foxminded.service;
 
-import ua.com.foxminded.dao.CourseDao;
-import ua.com.foxminded.dao.GroupDao;
-import ua.com.foxminded.dao.StudentDao;
+import ua.com.foxminded.db.dao.CourseDao;
+import ua.com.foxminded.db.dao.GroupDao;
+import ua.com.foxminded.db.dao.StudentDao;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Group;
 import ua.com.foxminded.model.Student;
@@ -14,13 +14,20 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class InitialData {
 
-    CourseDao courseDao = new CourseDao();
-    StudentDao studentDao = new StudentDao();
-    GroupDao groupDao = new GroupDao();
+    private final CourseDao courseDao;
+    private final StudentDao studentDao;
+    private final GroupDao groupDao;
 
     private static final int STUDENTS_TOTAL_AMOUNT = 200;
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String NUMERIC = "0123456789";
+
+    public InitialData() {
+        courseDao = new CourseDao();
+        studentDao = new StudentDao();
+        groupDao = new GroupDao();
+    }
+
 
     public void addGroupsToDataBase() {
         List<Group> groups = creatGroupsRandomAmountStudents
@@ -40,9 +47,8 @@ public class InitialData {
 
             studentCourse = new ArrayList<>(students.get(i).getCoursesId());
 
-            for (int i1 = 0; i1 < studentCourse.size(); i1++) {
-
-                studentDao.addStudentToCourseById(students.get(i).getId(), studentCourse.get(i1));
+            for (Integer integer : studentCourse) {
+                studentDao.addStudentToCourseById(students.get(i).getId(), integer);
             }
         }
     }
@@ -55,7 +61,7 @@ public class InitialData {
         }
     }
 
-    public List<Student> assignCoursesStudents() throws IOException {
+    private List<Student> assignCoursesStudents() throws IOException {
         List<Course> courseList = new ArrayList<>(createCourses());
 
         List<Student> students = assignFulNameToGroups();
@@ -78,7 +84,7 @@ public class InitialData {
         return students;
     }
 
-    public List<Student> assignFulNameToGroups() throws IOException {
+    private List<Student> assignFulNameToGroups() throws IOException {
         List<Group> groups =
                 creatGroupsRandomAmountStudents(STUDENTS_TOTAL_AMOUNT, 10, 30);
 
@@ -109,7 +115,7 @@ public class InitialData {
         return students;
     }
 
-    public List<Student> createStudentsFullName(Integer amountStudents) throws IOException {
+    private List<Student> createStudentsFullName(Integer amountStudents) throws IOException {
         List<Student> students = new ArrayList<>();
 
         List<String> names;
@@ -153,7 +159,7 @@ public class InitialData {
         return students;
     }
 
-    public Set<Course> createCourses() throws IOException {
+    private Set<Course> createCourses() throws IOException {
         Set<Course> courses = new HashSet<>();
         List<String> coursesTemp;
         try {
@@ -177,7 +183,7 @@ public class InitialData {
         return courses;
     }
 
-    public List<Group> creatGroupsRandomAmountStudents
+    private List<Group> creatGroupsRandomAmountStudents
             (Integer amountStudents, Integer minAmountStudentsGroup, Integer maxAmountStudentsGroup) {
 
         List<Group> groups = createGroups(10, 2, 2);
@@ -203,7 +209,7 @@ public class InitialData {
         return groups;
     }
 
-    public List<Group> createGroups(int numberGroups, int lengthWords, int lengthNumeric) {
+    private List<Group> createGroups(int numberGroups, int lengthWords, int lengthNumeric) {
         List<Group> groups = new ArrayList<>();
 
         int countId = 1;

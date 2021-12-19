@@ -1,5 +1,6 @@
-package ua.com.foxminded.dao;
+package ua.com.foxminded.db.dao;
 
+import ua.com.foxminded.db.DataSource;
 import ua.com.foxminded.model.Course;
 
 import java.sql.*;

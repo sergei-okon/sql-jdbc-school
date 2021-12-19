@@ -1,6 +1,6 @@
-package ua.com.foxminded.dao;
+package ua.com.foxminded.db.dao;
 
-import ua.com.foxminded.model.Course;
+import ua.com.foxminded.db.DataSource;
 import ua.com.foxminded.model.Student;
 
 import java.sql.*;
@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDao {
+    private final CourseDao courseDao;
+
+    public StudentDao() {
+        courseDao = new CourseDao();
+    }
 
     public List<Student> findAllStudentsRelatedToCourseByCourseName(String nameCourse) {
         List<Student> students = new ArrayList<>();
-        StudentDao studentDao = new StudentDao();
-        CourseDao courseDao = new CourseDao();
 
         int courseId = courseDao.findByName(nameCourse).getId();
         System.out.println("Id course  " + courseId);
@@ -26,7 +29,7 @@ public class StudentDao {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("student_id");
-                students.add(studentDao.findById(id));
+                students.add(findById(id));
             }
 
         } catch (SQLException e) {
@@ -37,7 +40,6 @@ public class StudentDao {
     }
 
     public void removeStudentFromCourses(int studentId, int coursesId) {
-        CourseDao courseDao = new CourseDao();
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
@@ -54,35 +56,31 @@ public class StudentDao {
         }
     }
 
-    public void addStudentToCourseById(int studentId, int courseId) {
+    public Integer addStudentToCourseById(Integer studentId, Integer courseId) {
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("INSERT INTO students_courses(student_id, courses_id)VALUES(?,?)")) {
+                     .prepareStatement("INSERT INTO students_courses(student_id, courses_id) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setInt(1, studentId);
             preparedStatement.setInt(2, courseId);
 
-            preparedStatement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                System.out.println("Added Student to the course");
+                return generatedKeys.getInt(1);
+            } else {
+                throw new RuntimeException("Creating entity failed, no Id obtained.");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void addStudentToCourseByName(Student student, Course courses) {
-
-        try (Connection connection = DataSource.getConnection();
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement("INSERT INTO students_courses(student_id, courses_id)VALUES(?,?)")) {
-
-            preparedStatement.setInt(1, student.getId());
-            preparedStatement.setInt(2, courses.getId());
-
-            preparedStatement.executeUpdate();
-            System.out.println("Added Student to the course: " + student.getFirstName() + " " + student.getLastName());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
     }
 
@@ -91,8 +89,7 @@ public class StudentDao {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("SELECT * FROM students WHERE student_id=?")) {
-
+                     .prepareStatement("SELECT student_id, first_name, last_name, group_id FROM students WHERE student_id=?")) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -146,7 +143,7 @@ public class StudentDao {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("UPDATE students SET  first_name=?, last_name=?, group_id=? where student_id=?;")) {
+                     .prepareStatement("UPDATE students SET  first_name=?, last_name=?, group_id=? where student_id=?")) {
 
             preparedStatement.setString(1, updateStudent.getFirstName());
             preparedStatement.setString(2, updateStudent.getLastName());

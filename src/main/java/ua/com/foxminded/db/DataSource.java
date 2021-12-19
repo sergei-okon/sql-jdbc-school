@@ -1,4 +1,4 @@
-package ua.com.foxminded.dao;
+package ua.com.foxminded.db;
 
 import java.io.IOException;
 import java.io.InputStream;

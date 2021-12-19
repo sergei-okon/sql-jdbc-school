@@ -1,5 +1,5 @@
-import ua.com.foxminded.dao.GroupDao;
-import ua.com.foxminded.dao.StudentDao;
+import ua.com.foxminded.db.dao.GroupDao;
+import ua.com.foxminded.db.dao.StudentDao;
 import ua.com.foxminded.model.Student;
 import ua.com.foxminded.service.InitialData;
 
