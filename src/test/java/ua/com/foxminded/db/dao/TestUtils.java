@@ -1,3 +1,5 @@
+package ua.com.foxminded.db.dao;
+
 import ua.com.foxminded.db.DataSource;
 
 import java.sql.*;
@@ -50,13 +52,13 @@ public class TestUtils {
         }
     }
 
-    public Integer createCourse(String expectedCourse, String expectedCourseDescription) throws SQLException {
+    public Integer createCourse(String expectedCourseName, String expectedCourseDescription) throws SQLException {
         try (Connection connection = DataSource.getConnection()) {
 
             PreparedStatement preparedStatement =
                     connection.prepareStatement("INSERT INTO courses(name, description) VALUES(?, ?)", Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setString(1, expectedCourse);
+            preparedStatement.setString(1, expectedCourseName);
             preparedStatement.setString(2, expectedCourseDescription);
 
             int generatedCourseId = preparedStatement.executeUpdate();
