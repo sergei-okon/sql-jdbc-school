@@ -25,22 +25,26 @@ public class GroupDao {
         return groups;
     }
 
-    public List<Group> findById(int id) {
-        List<Group> groups = new ArrayList<>();
+    public Group findById(int id) {
+        Group group = new Group();
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("SELECT group_id, name FROM GROUPS WHERE group_id=?")) {
+                     .prepareStatement("SELECT group_id, name, amount_students FROM GROUPS WHERE group_id=?")) {
 
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            groups = groupMapper(resultSet);
+            while (resultSet.next()) {
+                group.setId(resultSet.getInt("group_id"));
+                group.setName(resultSet.getString("name"));
+                group.setAmountStudents(resultSet.getInt("amount_students"));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return groups;
+        return group;
     }
 
     public List<Group> findAll() {

@@ -72,7 +72,6 @@ public class StudentDao {
 
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                System.out.println("Added Student to the course");
                 return generatedKeys.getInt(1);
             } else {
                 throw new RuntimeException("Creating entity failed, no Id obtained.");

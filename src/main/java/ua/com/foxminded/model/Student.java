@@ -84,7 +84,7 @@ public class Student {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", groupId=" + groupId +
-//                ", coursesId=" + coursesId +
+                ", coursesId=" + coursesId +
                 '}';
     }
 }

@@ -32,22 +32,25 @@ public class CourseDao {
         return course;
     }
 
-    public List<Course> findById(int id) {
-        List<Course> courses = new ArrayList<>();
+    public Course findById(int id) {
+        Course course = new Course();
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("SELECT course_id, name,description FROM courses WHERE course_id=?")) {
+                     .prepareStatement("SELECT course_id, name, description FROM courses WHERE course_id=?")) {
 
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            courses = courseMapper(resultSet);
-
+            while (resultSet.next()) {
+                course.setId(resultSet.getInt("course_id"));
+                course.setName(resultSet.getString("name"));
+                course.setDescription(resultSet.getString("description"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return courses;
+        return course;
     }
 
     public List<Course> findAll() {

@@ -28,7 +28,6 @@ public class InitialData {
         groupDao = new GroupDao();
     }
 
-
     public void addGroupsToDataBase() {
         List<Group> groups = creatGroupsRandomAmountStudents
                 (200, 10, 30);
