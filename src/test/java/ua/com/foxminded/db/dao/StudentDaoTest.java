@@ -14,7 +14,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentDaoTest extends TestUtils {
-    static StudentDao studentDao;
+    private final StudentDao studentDao = new StudentDao();
 
     @BeforeAll
     static void setUp() throws SQLException, IOException {
@@ -24,7 +24,6 @@ class StudentDaoTest extends TestUtils {
                 .getContextClassLoader().getResourceAsStream("scriptDB/initial_H2.sql")).readAllBytes(),
                 StandardCharsets.UTF_8));
         connection.close();
-        studentDao = new StudentDao();
     }
 
     @Test
@@ -34,27 +33,12 @@ class StudentDaoTest extends TestUtils {
 
         int savedStudentId = createStudent(expectedFirstName, expectedLastName);
 
-        try (Connection connection = DataSource.getConnection()) {
-            PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM students WHERE student_id = ?");
+        Student actualStudent = studentDao.findById(savedStudentId);
 
-            preparedStatement.setInt(1, savedStudentId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            Student actualStudent = new Student();
-
-            while (resultSet.next()) {
-                actualStudent.setId(resultSet.getInt("student_id"));
-                actualStudent.setFirstName(resultSet.getString("first_name"));
-                actualStudent.setLastName(resultSet.getString("last_name"));
-                actualStudent.setGroupId(resultSet.getInt("group_id"));
-
-                assertNotNull(actualStudent);
-                assertEquals(expectedFirstName, actualStudent.getFirstName());
-                assertEquals(expectedLastName, actualStudent.getLastName());
-                assertEquals(savedStudentId, actualStudent.getId());
-            }
-        }
+        assertNotNull(actualStudent);
+        assertEquals(expectedFirstName, actualStudent.getFirstName());
+        assertEquals(expectedLastName, actualStudent.getLastName());
+        assertEquals(savedStudentId, actualStudent.getId());
     }
 
     @Test
@@ -179,7 +163,7 @@ class StudentDaoTest extends TestUtils {
 
         int savedStudentId = 0;
         int savedCourseId = 0;
-        int studentCourseLinkId = 0;
+        int studentCourseLinkId;
 
         try {
             savedStudentId = createStudent(expectedFirstName, expectedLastName);
