@@ -37,10 +37,11 @@ public class StudentController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("student") @Valid Student student, BindingResult bindingResult) {
+    public String create(@Valid @ModelAttribute("student") Student student, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "students/new";
         }
+
         studentService.create(student);
         return "redirect:/students/";
     }

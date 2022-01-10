@@ -13,13 +13,13 @@ public class SchoolApplication extends SpringBootServletInitializer {
     public static void main(String[] args) throws IOException {
         SpringApplication.run(SchoolApplication.class, args);
 
-        System.out.println("Data initialization _______________________________________________");
-        InitialData initialData = new InitialData();
-        initialData.addCoursesToDataBase();
-        System.out.println("------------------------------------------------------------------");
-        initialData.addGroupsToDataBase();
-        System.out.println("------------------------------------------------------------------");
-        initialData.addStudentsToDataBase();
-        System.out.println("------------------------------------------------------------------");
+//        System.out.println("Data initialization _______________________________________________");
+//        InitialData initialData = new InitialData();
+//        initialData.addCoursesToDataBase();
+//        System.out.println("------------------------------------------------------------------");
+//        initialData.addGroupsToDataBase();
+//        System.out.println("------------------------------------------------------------------");
+//        initialData.addStudentsToDataBase();
+//        System.out.println("------------------------------------------------------------------");
     }
 }

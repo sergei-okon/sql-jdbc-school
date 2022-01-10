@@ -137,7 +137,7 @@ public class StudentDao {
 
             System.out.println("Added new student " + student);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

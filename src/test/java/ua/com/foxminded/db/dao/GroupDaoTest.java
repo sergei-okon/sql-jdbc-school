@@ -17,6 +17,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GroupDaoTest extends TestUtils {
+
     private final GroupDao groupDao = new GroupDao();
 
     @BeforeAll
@@ -28,7 +29,6 @@ class GroupDaoTest extends TestUtils {
                 StandardCharsets.UTF_8));
         connection.close();
     }
-
 
     @Test
     void findAllGroupsWithLessOrEqualsStudentCount() {
