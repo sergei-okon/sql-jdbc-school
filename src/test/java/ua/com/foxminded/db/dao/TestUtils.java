@@ -13,7 +13,7 @@ public class TestUtils {
             preparedStatement.setString(1, expectedFirstName);
             preparedStatement.setString(2, expectedLastName);
 
-            int affectedRows = preparedStatement.executeUpdate();
+            Integer affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
                 throw new SQLException("Creating user failed, no rows affected.");
@@ -28,7 +28,7 @@ public class TestUtils {
         }
     }
 
-    public Integer createGroup(String expectedGroupName, int expectedGroupAmountStudents) throws SQLException {
+    public Integer createGroup(String expectedGroupName, Integer expectedGroupAmountStudents) throws SQLException {
         try (Connection connection = DataSource.getConnection()) {
 
             PreparedStatement preparedStatement =
@@ -37,7 +37,7 @@ public class TestUtils {
             preparedStatement.setString(1, expectedGroupName);
             preparedStatement.setInt(2, expectedGroupAmountStudents);
 
-            int generatedGroupId = preparedStatement.executeUpdate();
+            Integer generatedGroupId = preparedStatement.executeUpdate();
 
             if (generatedGroupId == 0) {
                 throw new SQLException("Creating group failed, no rows affected.");
@@ -61,7 +61,7 @@ public class TestUtils {
             preparedStatement.setString(1, expectedCourseName);
             preparedStatement.setString(2, expectedCourseDescription);
 
-            int generatedCourseId = preparedStatement.executeUpdate();
+            Integer generatedCourseId = preparedStatement.executeUpdate();
 
             if (generatedCourseId == 0) {
                 throw new SQLException("Creating course failed, no rows affected.");

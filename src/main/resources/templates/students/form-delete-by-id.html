@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete student by Id</title>
+</head>
+<body>
+
+<h2>Delete student by Id </h2>
+
+<form action="/students/delete-by-id" method="Post">
+    <label for="id">Student id:</label>
+    <input type="text" id="id" name="id">
+
+    <input type="submit" value="Delete!">
+</form>
+<br/>
+<a th:href="@{/main}">Return to Main menu</a>
+</body>
+</html>

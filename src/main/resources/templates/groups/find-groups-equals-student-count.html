@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Find all groups with less or equals student count [[${count}]]</h1>
+
+<div th:each="group : ${groups}">
+    <a th:href="@{/groups/{id}(id=${group.getId()})}" th:text="${group.getName()}">group</a>
+</div>
+<br/>
+<a th:href="@{/main}">Return to Main menu</a>
+</body>
+</html>

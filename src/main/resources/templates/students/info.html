@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Student by Id</title>
+</head>
+<body>
+<h2>Student</h2>
+
+<h3>Id:<a th:text="${student.getId()}">VALUE</a>
+    <br/>
+    First name:<a th:text="${student.getFirstName()}">FirstName</a>
+    <br/>
+    Last name:<a th:text="${student.getLastName()}">LastName</a>
+    <br/>
+    GroupId:<a th:text="${student.getGroupId()}">GroupId</a>
+    <br/></h3>
+<a th:href="@{/students/{id}/edit(id=${student.getId()})}">Edit</a>
+
+<br/>
+<form th:method="DELETE" th:action="@{/students/{id}/delete(id=${student.getId()})}"/>
+<br/>
+<input type="submit" value="Delete"/>
+<br/>
+<br/>
+
+<a th:href="@{/main}">Return to Main menu</a>
+</body>
+</html>

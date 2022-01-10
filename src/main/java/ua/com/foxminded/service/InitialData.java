@@ -18,7 +18,7 @@ public class InitialData {
     private final StudentDao studentDao;
     private final GroupDao groupDao;
 
-    private static final int STUDENTS_TOTAL_AMOUNT = 200;
+    private static final Integer STUDENTS_TOTAL_AMOUNT = 200;
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String NUMERIC = "0123456789";
 
@@ -33,7 +33,7 @@ public class InitialData {
                 (200, 10, 30);
 
         for (Group group : groups) {
-            groupDao.addNew(group);
+            groupDao.create(group);
         }
     }
 
@@ -42,7 +42,7 @@ public class InitialData {
         List<Integer> studentCourse;
 
         for (int i = 0; i < 200; i++) {
-            studentDao.addNew(students.get(i));
+            studentDao.create(students.get(i));
 
             studentCourse = new ArrayList<>(students.get(i).getCoursesId());
 
@@ -56,7 +56,7 @@ public class InitialData {
         Set<Course> courseList = createCourses();
 
         for (Course course : courseList) {
-            courseDao.addNew(course);
+            courseDao.create(course);
         }
     }
 
@@ -99,14 +99,14 @@ public class InitialData {
         List<Student> studentsWithoutGroup = createStudentsFullName(STUDENTS_TOTAL_AMOUNT - students.size());
         Group groupWithoutStudents = new Group(11, "StudentWithoutGroup", studentsWithoutGroup.size());
 
-        groupDao.addNew(groupWithoutStudents);
+        groupDao.create(groupWithoutStudents);
 
         for (Student student : studentsWithoutGroup) {
             student.setGroupId(11);
         }
         students.addAll(studentsWithoutGroup);
 
-        int countId = 1;
+        Integer countId = 1;
         for (Student student : students) {
             student.setId(countId);
             countId++;
@@ -167,7 +167,7 @@ public class InitialData {
                     .getResourceAsStream("courses.txt")).readAllBytes(),
                     StandardCharsets.UTF_8).split("\r\n")).toList();
 
-            int countId = 1;
+            Integer countId = 1;
             for (String s : coursesTemp) {
                 String[] a = s.split(" ");
 
@@ -187,10 +187,10 @@ public class InitialData {
 
         List<Group> groups = createGroups(10, 2, 2);
 
-        int amountStudentsInGroups = 0;
+        Integer amountStudentsInGroups = 0;
         for (Group value : groups) {
 
-            int randomAmountStudents = ThreadLocalRandom.current().nextInt(minAmountStudentsGroup, maxAmountStudentsGroup + 1);
+            Integer randomAmountStudents = ThreadLocalRandom.current().nextInt(minAmountStudentsGroup, maxAmountStudentsGroup + 1);
             amountStudentsInGroups = amountStudentsInGroups + randomAmountStudents;
 
             if (amountStudentsInGroups + maxAmountStudentsGroup >= amountStudents) {
@@ -208,10 +208,10 @@ public class InitialData {
         return groups;
     }
 
-    private List<Group> createGroups(int numberGroups, int lengthWords, int lengthNumeric) {
+    private List<Group> createGroups(Integer numberGroups, Integer lengthWords, Integer lengthNumeric) {
         List<Group> groups = new ArrayList<>();
 
-        int countId = 1;
+        Integer countId = 1;
         while (numberGroups > groups.size()) {
             Group group = new Group();
 
@@ -228,7 +228,7 @@ public class InitialData {
         return groups;
     }
 
-    private String generateOneGroupsName(int lengthWords, int lengthNumeric) {
+    private String generateOneGroupsName(Integer lengthWords, Integer lengthNumeric) {
 
         Random random = new Random();
         StringBuilder result = new StringBuilder();

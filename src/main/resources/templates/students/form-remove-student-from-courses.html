@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Remove Student From Courses</title>
+</head>
+<body>
+
+<h2>Remove Student From Courses </h2>
+
+<form action="/students/remove-by-courses" method="Post">
+
+    <label for="studentId">Student id:</label>
+    <input type="text" id="studentId" name="studentId">
+
+    <label for="coursesId">Course id:</label>
+    <input type="text" id="coursesId" name="coursesId">
+
+    <input type="submit" value="Remove!">
+</form>
+<br/>
+<a th:href="@{/main}">Return to Main menu</a>
+</body>
+</html>

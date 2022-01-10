@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students List</title>
+</head>
+<body>
+
+<h2>Students List (First name, last name, group)</h2>
+
+<div th:each="student : ${students}">
+    <a th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getFirstName()}">student</a>
+    <a th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getLastName()}">student</a>
+    <a th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getGroupId()}">student</a>
+</div>
+<br/>
+<a th:href="@{/main}">Return to Main menu</a>
+</body>
+</html>

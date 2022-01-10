@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<h2> Main menu</h2>
+<h3>
+    <p>Please select an option</p>
+    <ol>
+        <li><a href="/students/" th:href="@{students/}">Students List</a></li>
+
+        <li><a href="/students/" th:href="@{students/new}">Add new student</a></li>
+
+        <li><a href="/students/" th:href="@{students/form/find-by-course-name}">Find students by course name</a></li>
+
+        <li><a href="/students/" th:href="@{students/form/remove-from-course}">Remove the student from one of his
+            courses</a></li>
+
+        <li><a href="/students/" th:href="@{students/form-delete-id}">Delete student by STUDENT_ID</a></li>
+
+        <li><a href="/students/" th:href="@{groups/form}">Find all groups with less or
+            equals student count</a></li>
+
+        <li><a href="/students/" th:href="@{students/form/add-to-course}">Add a student to the course</a></li>
+
+    </ol>
+</h3>
+</body>
+</html>

@@ -1,13 +1,26 @@
 package ua.com.foxminded.model;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class Student {
 
     private Integer id;
+
+    @NotEmpty(message = "First name should not be empty")
+    @Size(min = 2, max = 30, message = "First name should be between 2 and 30 characters")
     private String firstName;
+
+    @NotEmpty(message = "Last name should not be empty")
+    @Size(min = 2, max = 30, message = "Last name should be between 2 and 30 characters")
     private String lastName;
+
+    @NotEmpty(message = "GroupId should not be empty")
+    @Min(value = 1, message = "GroupId should be greater 0")
     private Integer groupId;
+
     private List<Integer> coursesId;
 
     public Student(Integer id) {

@@ -1,5 +1,6 @@
 package ua.com.foxminded.db.dao;
 
+import org.springframework.stereotype.Component;
 import ua.com.foxminded.db.DataSource;
 import ua.com.foxminded.model.Student;
 
@@ -7,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class StudentDao {
     private final CourseDao courseDao;
 
@@ -14,10 +16,10 @@ public class StudentDao {
         courseDao = new CourseDao();
     }
 
-    public List<Student> findAllStudentsRelatedToCourseByCourseName(String nameCourse) {
+    public List<Student> findAllStudentByCourseName(String name) {
         List<Student> students = new ArrayList<>();
 
-        int courseId = courseDao.findByName(nameCourse).getId();
+        Integer courseId = courseDao.findByName(name).getId();
         System.out.println("Id course  " + courseId);
 
         try (Connection connection = DataSource.getConnection();
@@ -28,7 +30,7 @@ public class StudentDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("student_id");
+                Integer id = resultSet.getInt("student_id");
                 students.add(findById(id));
             }
 
@@ -39,7 +41,7 @@ public class StudentDao {
         return students;
     }
 
-    public void removeStudentFromCourses(int studentId, int coursesId) {
+    public void removeStudentFromCourses(Integer studentId, Integer coursesId) {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
@@ -59,7 +61,8 @@ public class StudentDao {
     public Integer addStudentToCourseById(Integer studentId, Integer courseId) {
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("INSERT INTO students_courses(student_id, courses_id) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+                     .prepareStatement("INSERT INTO students_courses(student_id, courses_id) VALUES (?, ?)",
+                             Statement.RETURN_GENERATED_KEYS)) {
 
             preparedStatement.setInt(1, studentId);
             preparedStatement.setInt(2, courseId);
@@ -83,7 +86,7 @@ public class StudentDao {
         }
     }
 
-    public Student findById(int id) {
+    public Student findById(Integer id) {
         Student student = new Student();
 
         try (Connection connection = DataSource.getConnection();
@@ -121,7 +124,7 @@ public class StudentDao {
         return students;
     }
 
-    public void addNew(Student student) {
+    public void create(Student student) {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
@@ -138,7 +141,7 @@ public class StudentDao {
         }
     }
 
-    public void update(int id, Student updateStudent) {
+    public void update(Integer id, Student updateStudent) {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
@@ -156,7 +159,7 @@ public class StudentDao {
         }
     }
 
-    public void delete(int id) {
+    public void delete(Integer id) {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement

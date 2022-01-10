@@ -33,7 +33,7 @@ class CourseDaoTest extends TestUtils {
         String expectedName = "Math";
         String expectedDescription = "Mathematics";
 
-        int savedCourseId = createCourse(expectedName, expectedDescription);
+        Integer savedCourseId = createCourse(expectedName, expectedDescription);
 
         Course actualCourse = courseDao.findByName(expectedName);
 
@@ -47,7 +47,7 @@ class CourseDaoTest extends TestUtils {
         String expectedName = "Math";
         String expectedDescription = "Mathematics";
 
-        int savedCourseId = createCourse(expectedName, expectedDescription);
+        Integer savedCourseId = createCourse(expectedName, expectedDescription);
 
         Course actualCourse = courseDao.findById(savedCourseId);
 
@@ -61,7 +61,7 @@ class CourseDaoTest extends TestUtils {
         String expectedName = "Math";
         String expectedDescription = "Mathematics";
 
-        int savedCourseId = createCourse(expectedName, expectedDescription);
+        Integer savedCourseId = createCourse(expectedName, expectedDescription);
 
         Course actualCourse = courseDao.findById(savedCourseId);
 

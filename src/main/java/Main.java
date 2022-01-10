@@ -20,7 +20,7 @@ public class Main {
         initialData.addStudentsToDataBase();
         System.out.println("------------------------------------------------------------------");
 
-        int coutStudentsInGroup = 20;
+        Integer coutStudentsInGroup = 20;
         System.out.println("Find all groups with less or equals student count " + coutStudentsInGroup);
         GroupDao groupDao1 = new GroupDao();
         System.out.println(groupDao1.findAllGroupsWithLessOrEqualsStudentCount(coutStudentsInGroup));
@@ -30,7 +30,7 @@ public class Main {
         StudentDao studentDao = new StudentDao();
         String course = "Mathematics";
         System.out.println("Find all students related to course with given name " + course);
-        List<Student> st = studentDao.findAllStudentsRelatedToCourseByCourseName(course);
+        List<Student> st = studentDao.findAllStudentByCourseName(course);
         System.out.println(st);
 
         System.out.println("------------------------------------------------------------------");
@@ -38,7 +38,7 @@ public class Main {
         coursesId.add(1);
         coursesId.add(7);
         Student newStudent = new Student("Peter", "Volkov", 2, coursesId);
-        studentDao.addNew(newStudent);
+        studentDao.create(newStudent);
 
         System.out.println("------------------------------------------------------------------");
         studentDao.delete(1);

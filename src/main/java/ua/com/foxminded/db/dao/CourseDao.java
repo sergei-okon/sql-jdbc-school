@@ -1,5 +1,6 @@
 package ua.com.foxminded.db.dao;
 
+import org.springframework.stereotype.Component;
 import ua.com.foxminded.db.DataSource;
 import ua.com.foxminded.model.Course;
 
@@ -7,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CourseDao {
 
     public Course findByName(String name) {
@@ -32,7 +34,7 @@ public class CourseDao {
         return course;
     }
 
-    public Course findById(int id) {
+    public Course findById(Integer id) {
         Course course = new Course();
 
         try (Connection connection = DataSource.getConnection();
@@ -67,7 +69,7 @@ public class CourseDao {
         return courses;
     }
 
-    public void addNew(Course course) {
+    public void create(Course course) {
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO courses(name, description) VALUES (?, ?);")) {
@@ -82,7 +84,7 @@ public class CourseDao {
         }
     }
 
-    public void update(int id, Course updateCourse) {
+    public void update(Integer id, Course updateCourse) {
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("UPDATE courses SET name=?, description=? where course_id=?;")) {
@@ -99,7 +101,7 @@ public class CourseDao {
         }
     }
 
-    public void delete(int id) {
+    public void delete(Integer id) {
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("DELETE FROM courses where course_id=?;")) {
@@ -125,7 +127,6 @@ public class CourseDao {
 
             courses.add(course);
         }
-
         return courses;
     }
 }

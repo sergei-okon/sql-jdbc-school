@@ -31,7 +31,7 @@ class StudentDaoTest extends TestUtils {
         String expectedFirstName = "Callum";
         String expectedLastName = "Mcfarland";
 
-        int savedStudentId = createStudent(expectedFirstName, expectedLastName);
+        Integer savedStudentId = createStudent(expectedFirstName, expectedLastName);
 
         Student actualStudent = studentDao.findById(savedStudentId);
 
@@ -46,7 +46,7 @@ class StudentDaoTest extends TestUtils {
         String expectedFirstName = "Callum";
         String expectedLastName = "Mcfarland";
 
-        int savedStudentId = createStudent(expectedFirstName, expectedLastName);
+        Integer savedStudentId = createStudent(expectedFirstName, expectedLastName);
 
         Student actual = studentDao.findById(savedStudentId);
 
@@ -60,7 +60,7 @@ class StudentDaoTest extends TestUtils {
         String expectedFirstName = "Callum";
         String expectedLastName = "Mcfarland";
 
-        int savedStudentId = createStudent(expectedFirstName, expectedLastName);
+        Integer savedStudentId = createStudent(expectedFirstName, expectedLastName);
 
         studentDao.delete(savedStudentId);
 
@@ -84,8 +84,8 @@ class StudentDaoTest extends TestUtils {
         String expectedNameCourse = "Math";
         String expectedDescription = "Mathematics";
 
-        int savedStudentId = 0;
-        int savedCourseId = 0;
+        Integer savedStudentId = 0;
+        Integer savedCourseId = 0;
 
         try {
             savedStudentId = createStudent(expectedFirstName, expectedLastName);
@@ -107,7 +107,7 @@ class StudentDaoTest extends TestUtils {
             e.printStackTrace();
         }
 
-        List<Student> actual = studentDao.findAllStudentsRelatedToCourseByCourseName(expectedNameCourse);
+        List<Student> actual = studentDao.findAllStudentByCourseName(expectedNameCourse);
 
         assertNotNull(actual);
         assertEquals(actual.size(), 1);
@@ -128,8 +128,8 @@ class StudentDaoTest extends TestUtils {
         String expectedNameCourse = "Math";
         String expectedDescription = "Mathematics";
 
-        int savedStudentId = 0;
-        int savedCourseId = 0;
+        Integer savedStudentId = 0;
+        Integer savedCourseId = 0;
 
         try {
             savedStudentId = createStudent(expectedFirstName, expectedLastName);
@@ -161,8 +161,8 @@ class StudentDaoTest extends TestUtils {
         String expectedNameCourse = "Math";
         String expectedDescription = "Mathematics";
 
-        int savedStudentId = 0;
-        int savedCourseId = 0;
+        Integer savedStudentId = 0;
+        Integer savedCourseId = 0;
         int studentCourseLinkId;
 
         try {

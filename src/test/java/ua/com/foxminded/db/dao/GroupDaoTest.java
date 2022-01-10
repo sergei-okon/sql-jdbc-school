@@ -37,9 +37,9 @@ class GroupDaoTest extends TestUtils {
     @Test
     void findById() throws SQLException {
         String expectedName = "AB-33";
-        int expectedAmountStudents = 2;
+        Integer expectedAmountStudents = 2;
 
-        int savedGroupId = createGroup(expectedName, expectedAmountStudents);
+        Integer savedGroupId = createGroup(expectedName, expectedAmountStudents);
 
         Group actualGroup = groupDao.findById(savedGroupId);
 
@@ -51,9 +51,9 @@ class GroupDaoTest extends TestUtils {
     @Test
     void addNew() throws SQLException {
         String expectedName = "AB-33";
-        int expectedAmountStudents = 2;
+        Integer expectedAmountStudents = 2;
 
-        int savedGroupId = createGroup(expectedName, expectedAmountStudents);
+        Integer savedGroupId = createGroup(expectedName, expectedAmountStudents);
 
         Group actualGroup = groupDao.findById(savedGroupId);
 

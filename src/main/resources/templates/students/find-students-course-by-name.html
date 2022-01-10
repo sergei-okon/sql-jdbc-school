@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find All Student By Course Name</title>
+</head>
+<body>
+
+<h1>Students from the course [[${name}]]</h1>
+
+<div th:each="student : ${students}">
+    <a th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getFirstName()}">student</a>
+    <a th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getLastName()}">student</a>
+    <a th:href="@{/students/{id}(id=${student.getId()})}" th:text="${student.getGroupId()}">student</a>
+
+</div>
+<br/>
+<a th:href="@{/main}">Return to Main menu</a>
+</body>
+</html>

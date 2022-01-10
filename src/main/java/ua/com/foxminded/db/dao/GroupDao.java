@@ -1,5 +1,6 @@
 package ua.com.foxminded.db.dao;
 
+import org.springframework.stereotype.Component;
 import ua.com.foxminded.db.DataSource;
 import ua.com.foxminded.model.Group;
 
@@ -7,9 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class GroupDao {
 
-    public List<Group> findAllGroupsWithLessOrEqualsStudentCount(int count) {
+    public List<Group> findAllGroupsWithLessOrEqualsStudentCount(Integer count) {
         List<Group> groups = new ArrayList<>();
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
@@ -25,7 +27,7 @@ public class GroupDao {
         return groups;
     }
 
-    public Group findById(int id) {
+    public Group findById(Integer id) {
         Group group = new Group();
 
         try (Connection connection = DataSource.getConnection();
@@ -62,7 +64,7 @@ public class GroupDao {
         return groups;
     }
 
-    public void addNew(Group group) {
+    public void create(Group group) {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
@@ -79,7 +81,7 @@ public class GroupDao {
         }
     }
 
-    public void update(int id, Group updateGroup) {
+    public void update(Integer id, Group updateGroup) {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
@@ -94,7 +96,7 @@ public class GroupDao {
         }
     }
 
-    public void delete(int id) {
+    public void delete(Integer id) {
 
         try (Connection connection = DataSource.getConnection();
              PreparedStatement preparedStatement = connection
