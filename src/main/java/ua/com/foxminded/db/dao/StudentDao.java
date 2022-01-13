@@ -10,10 +10,13 @@ import java.util.List;
 
 @Component
 public class StudentDao {
-    private final CourseDao courseDao;
 
-    public StudentDao() {
-        courseDao = new CourseDao();
+    private final CourseDao courseDao;
+    private final DataSource dataSource;
+
+    public StudentDao(DataSource dataSource, CourseDao courseDao) {
+        this.dataSource = dataSource;
+        this.courseDao = courseDao;
     }
 
     public List<Student> findAllStudentByCourseName(String name) {
@@ -22,7 +25,7 @@ public class StudentDao {
         Integer courseId = courseDao.findByName(name).getId();
         System.out.println("Id course  " + courseId);
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("  SELECT student_id FROM students_courses WHERE courses_id=?")) {
 
@@ -43,7 +46,7 @@ public class StudentDao {
 
     public void removeStudentFromCourses(Integer studentId, Integer coursesId) {
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement(" DELETE FROM  students_courses  WHERE (student_id=? AND courses_id=?) ;")) {
 
@@ -59,7 +62,7 @@ public class StudentDao {
     }
 
     public Integer addStudentToCourseById(Integer studentId, Integer courseId) {
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO students_courses(student_id, courses_id) VALUES (?, ?)",
                              Statement.RETURN_GENERATED_KEYS)) {
@@ -89,7 +92,7 @@ public class StudentDao {
     public Student findById(Integer id) {
         Student student = new Student();
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("SELECT student_id, first_name, last_name, group_id FROM students WHERE student_id=?")) {
             preparedStatement.setInt(1, id);
@@ -110,7 +113,7 @@ public class StudentDao {
     public List<Student> findAll() {
         List<Student> students = new ArrayList<>();
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("SELECT student_id, first_name, last_name, group_id FROM STUDENTS")) {
 
@@ -126,7 +129,7 @@ public class StudentDao {
 
     public void create(Student student) {
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO students(first_name, last_name, group_id) VALUES( ?, ?, ?)")) {
 
@@ -143,7 +146,7 @@ public class StudentDao {
 
     public void update(Integer id, Student updateStudent) {
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("UPDATE students SET  first_name=?, last_name=?, group_id=? where student_id=?")) {
 
@@ -161,7 +164,7 @@ public class StudentDao {
 
     public void delete(Integer id) {
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement
                      ("DELETE FROM students_courses WHERE student_id=?; DELETE FROM STUDENTS where student_id=?;")) {
 

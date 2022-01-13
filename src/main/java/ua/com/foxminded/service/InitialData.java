@@ -1,5 +1,6 @@
 package ua.com.foxminded.service;
 
+import org.springframework.stereotype.Component;
 import ua.com.foxminded.db.dao.CourseDao;
 import ua.com.foxminded.db.dao.GroupDao;
 import ua.com.foxminded.db.dao.StudentDao;
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Component
 public class InitialData {
 
     private final CourseDao courseDao;
@@ -22,10 +24,10 @@ public class InitialData {
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String NUMERIC = "0123456789";
 
-    public InitialData() {
-        courseDao = new CourseDao();
-        studentDao = new StudentDao();
-        groupDao = new GroupDao();
+    public InitialData(CourseDao courseDao, StudentDao studentDao, GroupDao groupDao) {
+        this.courseDao = courseDao;
+        this.studentDao = studentDao;
+        this.groupDao = groupDao;
     }
 
     public void addGroupsToDataBase() {

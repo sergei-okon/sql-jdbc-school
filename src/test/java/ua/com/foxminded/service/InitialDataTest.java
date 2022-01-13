@@ -1,7 +1,12 @@
 package ua.com.foxminded.service;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.metrics.ApplicationStartup;
 import ua.com.foxminded.db.DataSource;
 
 import java.io.IOException;
@@ -11,16 +16,15 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 class InitialDataTest {
 
-    static InitialData initialData;
+    @Autowired
+    private InitialData initialData;
 
     @BeforeEach
     void beforeEach() throws SQLException, IOException {
-        initialData = new InitialData();
         Connection connection = DataSource.getConnection();
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("DROP TABLE IF EXISTS students_courses; DROP TABLE IF EXISTS COURSES; DROP TABLE IF EXISTS  GROUPS, STUDENTS;");
 
         Statement statement2 = connection.createStatement();
         statement2.executeUpdate(new String(Objects.requireNonNull(Thread.currentThread()

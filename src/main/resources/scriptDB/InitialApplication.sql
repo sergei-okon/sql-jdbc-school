@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS public.students
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 )
-
     TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.students

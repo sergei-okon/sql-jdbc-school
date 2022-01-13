@@ -10,6 +10,7 @@ import ua.com.foxminded.service.GroupService;
 @Controller
 @RequestMapping("/groups")
 public class GroupController {
+
     private final GroupService groupService;
 
     public GroupController(GroupService groupService) {

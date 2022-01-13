@@ -2,10 +2,10 @@ package ua.com.foxminded.db.dao;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ua.com.foxminded.db.DataSource;
-import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Group;
-import ua.com.foxminded.model.Student;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,11 +14,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@SpringBootTest
 class GroupDaoTest extends TestUtils {
 
-    private final GroupDao groupDao = new GroupDao();
+    @Autowired
+    private GroupDao groupDao;
 
     @BeforeAll
     static void setUp() throws SQLException, IOException {

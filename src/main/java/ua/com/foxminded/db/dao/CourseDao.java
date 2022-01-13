@@ -1,6 +1,6 @@
 package ua.com.foxminded.db.dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ua.com.foxminded.db.DataSource;
 import ua.com.foxminded.model.Course;
 
@@ -8,13 +8,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class CourseDao {
+    
+    private final DataSource dataSource;
+
+    public CourseDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public Course findByName(String name) {
         Course course = new Course();
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("SELECT course_id, name,description FROM courses WHERE name LIKE ?")) {
 
@@ -37,7 +43,7 @@ public class CourseDao {
     public Course findById(Integer id) {
         Course course = new Course();
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("SELECT course_id, name, description FROM courses WHERE course_id=?")) {
 
@@ -58,7 +64,7 @@ public class CourseDao {
     public List<Course> findAll() {
         List<Course> courses = new ArrayList<>();
 
-        try (Statement statement = DataSource.getConnection().createStatement()) {
+        try (Statement statement = dataSource.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT course_id, name,description FROM courses");
             courses = courseMapper(resultSet);
 
@@ -70,7 +76,7 @@ public class CourseDao {
     }
 
     public void create(Course course) {
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO courses(name, description) VALUES (?, ?);")) {
 
@@ -85,7 +91,7 @@ public class CourseDao {
     }
 
     public void update(Integer id, Course updateCourse) {
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("UPDATE courses SET name=?, description=? where course_id=?;")) {
 
@@ -102,7 +108,7 @@ public class CourseDao {
     }
 
     public void delete(Integer id) {
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("DELETE FROM courses where course_id=?;")) {
 

@@ -11,9 +11,15 @@ import java.util.List;
 @Component
 public class GroupDao {
 
+    private final DataSource dataSource;
+
+    public GroupDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public List<Group> findAllGroupsWithLessOrEqualsStudentCount(Integer count) {
         List<Group> groups = new ArrayList<>();
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("SELECT group_id,name,amount_students FROM groups WHERE groups.amount_students>=?")) {
 
@@ -30,7 +36,7 @@ public class GroupDao {
     public Group findById(Integer id) {
         Group group = new Group();
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("SELECT group_id, name, amount_students FROM GROUPS WHERE group_id=?")) {
 
@@ -52,7 +58,7 @@ public class GroupDao {
     public List<Group> findAll() {
         List<Group> groups = new ArrayList<>();
 
-        try (Statement statement = DataSource.getConnection().createStatement()) {
+        try (Statement statement = dataSource.getConnection().createStatement()) {
 
             ResultSet resultSet = statement.executeQuery("SELECT group_id, name, amount_students FROM GROUPS");
             groups = groupMapper(resultSet);
@@ -66,7 +72,7 @@ public class GroupDao {
 
     public void create(Group group) {
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("INSERT INTO GROUPS(name, amount_students) VALUES (?,?);")) {
 
@@ -83,7 +89,7 @@ public class GroupDao {
 
     public void update(Integer id, Group updateGroup) {
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("UPDATE GROUPS SET name=? where group_id=?;")) {
 
@@ -98,7 +104,7 @@ public class GroupDao {
 
     public void delete(Integer id) {
 
-        try (Connection connection = DataSource.getConnection();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection
                      .prepareStatement("DELETE FROM GROUPS where group_id=?;")) {
 

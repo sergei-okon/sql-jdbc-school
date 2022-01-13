@@ -2,6 +2,10 @@ package ua.com.foxminded.db.dao;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import ua.com.foxminded.db.DataSource;
 import ua.com.foxminded.model.Course;
 
@@ -15,8 +19,11 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@SpringBootTest
 class CourseDaoTest extends TestUtils {
-    private final CourseDao courseDao = new CourseDao();
+
+    @Autowired
+    private CourseDao courseDao;
 
     @BeforeAll
     static void setUp() throws SQLException, IOException {

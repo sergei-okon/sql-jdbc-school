@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS COURSES;
+DROP TABLE IF EXISTS STUDENTS_COURSES;
 --
-DROP TABLE IF EXISTS  GROUPS, STUDENTS, COURSES;
+DROP TABLE IF EXISTS GROUPS, STUDENTS, COURSES;
 
 create table COURSES
 (
@@ -39,7 +39,7 @@ create table students_courses
 (
     id         int auto_increment,
     student_id int not null,
-    courses_id  int not null,
+    courses_id int not null,
     constraint STUDENTS_COURSES_PK
         primary key (id),
     constraint STUDENTS_COURSES_COURSES_COURSES_ID_FK
