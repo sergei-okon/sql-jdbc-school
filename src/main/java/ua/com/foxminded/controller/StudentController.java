@@ -41,7 +41,6 @@ public class StudentController {
         if (bindingResult.hasErrors()) {
             return "students/new";
         }
-
         studentService.create(student);
         return "redirect:/students/";
     }

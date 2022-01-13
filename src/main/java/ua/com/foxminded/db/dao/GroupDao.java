@@ -55,21 +55,6 @@ public class GroupDao {
         return group;
     }
 
-    public List<Group> findAll() {
-        List<Group> groups = new ArrayList<>();
-
-        try (Statement statement = dataSource.getConnection().createStatement()) {
-
-            ResultSet resultSet = statement.executeQuery("SELECT group_id, name, amount_students FROM GROUPS");
-            groups = groupMapper(resultSet);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return groups;
-    }
-
     public void create(Group group) {
 
         try (Connection connection = dataSource.getConnection();

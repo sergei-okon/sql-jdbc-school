@@ -61,19 +61,6 @@ public class CourseDao {
         return course;
     }
 
-    public List<Course> findAll() {
-        List<Course> courses = new ArrayList<>();
-
-        try (Statement statement = dataSource.getConnection().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT course_id, name,description FROM courses");
-            courses = courseMapper(resultSet);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return courses;
-    }
 
     public void create(Course course) {
         try (Connection connection = dataSource.getConnection();

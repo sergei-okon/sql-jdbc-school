@@ -19,20 +19,8 @@ public class GroupService {
         return groupDao.findAllGroupsWithLessOrEqualsStudentCount(count);
     }
 
-    public Group findById(Integer id) {
-        return groupDao.findById(id);
-    }
-
-    public List<Group> findAll() {
-        return groupDao.findAll();
-    }
-
     public void create(Group group) {
         groupDao.create(group);
-    }
-
-    public void update(Integer id, Group updateGroup) {
-        groupDao.update(id, updateGroup);
     }
 
     public void delete(Integer id) {
